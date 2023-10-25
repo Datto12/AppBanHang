@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <!-- Màu nền -->
+            <solid android:color="#FFC107" /> <!-- Thay đổi mã màu tại đây -->
+
+            <!-- Viền màu đen -->
+            <stroke
+                android:color="#000000"
+            android:width="2dp" />
+        </shape>
+    </item>
+</selector>

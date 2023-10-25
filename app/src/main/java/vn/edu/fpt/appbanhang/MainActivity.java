@@ -9,14 +9,17 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -33,9 +36,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import vn.edu.fpt.appbanhang.DienThoai.DienThoaiFragment;
-import vn.edu.fpt.appbanhang.LapTop.ChiTietLaptopActivity;
 import vn.edu.fpt.appbanhang.LapTop.LapTopFragment;
-import vn.edu.fpt.appbanhang.LienHe.LienHeFragment;
+import vn.edu.fpt.appbanhang.LienHe.Chat_bot_Fragment;
 import vn.edu.fpt.appbanhang.Retrofit.MyRetrofit;
 import vn.edu.fpt.appbanhang.SanPhamMoi.AdapterSpMoi;
 import vn.edu.fpt.appbanhang.SanPhamMoi.SanPham;
@@ -43,6 +45,7 @@ import vn.edu.fpt.appbanhang.SanPhamMoi.SanPhamMoiFragment;
 import vn.edu.fpt.appbanhang.SanPhamMoi.SpMoi;
 import vn.edu.fpt.appbanhang.SanPhamYeuThich.MyAdapter;
 import vn.edu.fpt.appbanhang.ThongTin.ThongTinFragment;
+import vn.edu.fpt.appbanhang.login.ManHinhChoActivity;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -56,8 +59,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private AdapterSpMoi adapterSpMoi;
     private ArrayList<SpMoi> list;
     private MyAdapter myAdapter;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +69,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSanPhamMoi();
         getSanPhamYeuThich();
         ChiTietSanPhamMoi();
+        NavigationView navigationView = findViewById(R.id.NavView);
+        View headerView = navigationView.getHeaderView(0);
+        ImageView fixProfileImageView = headerView.findViewById(R.id.btn_fixProfile);
+        fixProfileImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialogFixPF();
+            }
+        });
     }
     private void ActionViewFlipper(){
         List<String> mangquangcao = new ArrayList<>();
@@ -96,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar.setNavigationIcon(R.drawable.ic_menu);
         navigationView.setNavigationItemSelectedListener(this);
     }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -104,25 +113,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
            startActivity(new Intent(getApplicationContext(),MainActivity.class));
         } else if (id == R.id.dienthoai) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.id_framelayout, DienThoaiFragment.newInstance());//Thay thế màn hình framelayout bằng Bai1fragment
+            transaction.replace(R.id.id_framelayout, DienThoaiFragment.newInstance());
             transaction.commit();
         }else if (id == R.id.laptop) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.id_framelayout, LapTopFragment.newInstance());//Thay thế màn hình framelayout bằng Bai1fragment
+            transaction.replace(R.id.id_framelayout, LapTopFragment.newInstance());
             transaction.commit();
-        }else if (id == R.id.lienhe) {
+        }else if (id == R.id.chat_bot) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.id_framelayout, LienHeFragment.newInstance());//Thay thế màn hình framelayout bằng Bai1fragment
+            transaction.replace(R.id.id_framelayout, Chat_bot_Fragment.newInstance());
             transaction.commit();
         }else if (id == R.id.thongtin) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.id_framelayout, ThongTinFragment.newInstance());//Thay thế màn hình framelayout bằng Bai1fragment
+            transaction.replace(R.id.id_framelayout, ThongTinFragment.newInstance());
             transaction.commit();
+        }else if (id == R.id.out_app) {
+            showDialogOut();
         }
         drawerLayout.closeDrawer(navigationView);
         return false;
     }
-
     @Override
     public void onBackPressed() {
         if(drawerLayout.isDrawerOpen(navigationView)){
@@ -131,7 +141,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode==KeyEvent.KEYCODE_BACK){
@@ -143,8 +152,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return true;
     }
-
-
     private void AnhXa(){
        toolbar = findViewById(R.id.toolbar);
         viewFlipper = findViewById(R.id.viewflipper);
@@ -168,7 +175,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                    adapterSpMoi.notifyDataSetChanged();
                }
            }
-
            @Override
            public void onFailure(Call<SanPham> call, Throwable t) {
 
@@ -187,7 +193,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     myAdapter.notifyDataSetChanged();
                 }
             }
-
             @Override
             public void onFailure(Call<SanPham> call, Throwable t) {
 
@@ -203,5 +208,57 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 transaction.commit();
             }
         });
+    }
+    private void showDialogOut() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_out_app, null);
+
+        Button btnCancel = view.findViewById(R.id.btnCancel);
+        Button btnConfirm = view.findViewById(R.id.btnConfirm);
+
+        builder.setView(view);
+        final AlertDialog alertDialog = builder.create();
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ManHinhChoActivity.class));
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+    }
+    private void showDialogFixPF(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_fix_profile, null);
+
+        Button btnCancel = view.findViewById(R.id.btnCancel);
+        Button btnConfirm = view.findViewById(R.id.btnConfirm);
+
+        builder.setView(view);
+        final AlertDialog alertDialog = builder.create();
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
     }
 }
