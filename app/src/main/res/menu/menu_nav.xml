@@ -24,14 +24,19 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/lienhe"
-            android:title="LIÊN HỆ"
-            android:icon="@drawable/baseline_call_24"
+            android:id="@+id/chat_bot"
+            android:title="CHAT"
+            android:icon="@drawable/ic_chat_bot"
             />
         <item
             android:id="@+id/thongtin"
             android:title="THÔNG TIN"
             android:icon="@drawable/baseline_supervised_user_circle_24"
+            />
+        <item
+            android:id="@+id/out_app"
+            android:title="Thoát"
+            android:icon="@drawable/baseline_logout_24"
             />
     </group>
 
