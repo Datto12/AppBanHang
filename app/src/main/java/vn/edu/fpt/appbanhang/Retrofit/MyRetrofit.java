@@ -1,10 +1,12 @@
 package vn.edu.fpt.appbanhang.Retrofit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -22,7 +24,7 @@ import vn.edu.fpt.appbanhang.models.Cart;
 import vn.edu.fpt.appbanhang.models.User;
 
 public interface MyRetrofit {
-    MyRetrofit api =new Retrofit.Builder().baseUrl("http://192.168.0.103:3000/").addConverterFactory(GsonConverterFactory.create()).build().create(MyRetrofit.class);
+    MyRetrofit api =new Retrofit.Builder().baseUrl("http://192.168.1.5:3000/").addConverterFactory(GsonConverterFactory.create()).build().create(MyRetrofit.class);
 
     @GET("spmoi/listspmoi")
     Call<SanPham> GetListSpMoi();
@@ -51,4 +53,10 @@ public interface MyRetrofit {
 
     @GET("lt/{id}")
     Call<DuLieuChiTietLaptop> getChiTietLaptop(@Path("id") String id);
+
+    @GET("user")
+    Call<ArrayList<User>> getUser();
+
+    @POST("user/add")
+    Call<User> addUser(@Body User user);
 }

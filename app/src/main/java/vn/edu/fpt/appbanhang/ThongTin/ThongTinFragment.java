@@ -56,8 +56,7 @@ public class ThongTinFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        super.onViewCreated(view, savedInstanceState);
-
+        mapFragment.getMapAsync(this);
         super.onViewCreated(view, savedInstanceState);
     }
 
