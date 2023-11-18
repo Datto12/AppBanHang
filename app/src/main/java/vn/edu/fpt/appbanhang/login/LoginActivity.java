@@ -66,6 +66,19 @@ public class LoginActivity extends AppCompatActivity {
 //       });
 //    }
     public void CheckLogin(){
+        MyRetrofit.api.getUser().enqueue(new Callback<ArrayList<User>>() {
+            @Override
+            public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
+                if(response.body()!=null){
+                    list = response.body();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<User>> call, Throwable t) {
+
+            }
+        });
         String email = edEmail.getText().toString().trim();
         String passwd = edPassword.getText().toString().trim();
 

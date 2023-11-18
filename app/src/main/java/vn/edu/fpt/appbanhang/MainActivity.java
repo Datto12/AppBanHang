@@ -128,6 +128,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.id_framelayout, ThongTinFragment.newInstance());
             transaction.commit();
+        }else if (id == R.id.cart) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.id_framelayout, CartFragment.newInstance());
+            transaction.commit();
         }
         drawerLayout.closeDrawer(navigationView);
         return false;
