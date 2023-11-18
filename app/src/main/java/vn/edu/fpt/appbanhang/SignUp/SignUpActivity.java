@@ -26,12 +26,12 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         AnhXa();
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SignUp();
-            }
-        });
+//        btnSignUp.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                SignUp();
+//            }
+//        });
     }
     public void AnhXa(){
         edEmail = findViewById(R.id.edEmailSignUp);
@@ -39,33 +39,33 @@ public class SignUpActivity extends AppCompatActivity {
         edRePass = findViewById(R.id.edRePasswordSignUp);
         btnSignUp = findViewById(R.id.btnSignUp);
     }
-    public void SignUp(){
-        String email = edEmail.getText().toString().trim();
-        String passwd = edPass.getText().toString().trim();
-        String rePass = edRePass.getText().toString().trim();
-        if(email.isEmpty() || passwd.isEmpty() || rePass.isEmpty()){
-            Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-            edRePass.setText("");
-            edEmail.setText("");
-            edPass.setText("");
-
-        }
-        if(rePass.equals(passwd)){
-            User user = new User(email,passwd);
-            MyRetrofit.api.addUser(user).enqueue(new Callback<User>() {
-                @Override
-                public void onResponse(Call<User> call, Response<User> response) {
-                    Toast.makeText(SignUpActivity.this, "Đăng kí thành công", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                }
-
-                @Override
-                public void onFailure(Call<User> call, Throwable t) {
-
-                }
-            });
-        }else {
-            Toast.makeText(this, "Vui lòng nhập đúng mật khẩu", Toast.LENGTH_SHORT).show();
-        }
-    }
+//    public void SignUp(){
+//        String email = edEmail.getText().toString().trim();
+//        String passwd = edPass.getText().toString().trim();
+//        String rePass = edRePass.getText().toString().trim();
+//        if(email.isEmpty() || passwd.isEmpty() || rePass.isEmpty()){
+//            Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+//            edRePass.setText("");
+//            edEmail.setText("");
+//            edPass.setText("");
+//
+//        }
+//        if(rePass.equals(passwd)){
+//            User user = new User(email,passwd);
+//            MyRetrofit.api.addUser(user).enqueue(new Callback<User>() {
+//                @Override
+//                public void onResponse(Call<User> call, Response<User> response) {
+//                    Toast.makeText(SignUpActivity.this, "Đăng kí thành công", Toast.LENGTH_SHORT).show();
+//                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                }
+//
+//                @Override
+//                public void onFailure(Call<User> call, Throwable t) {
+//
+//                }
+//            });
+//        }else {
+//            Toast.makeText(this, "Vui lòng nhập đúng mật khẩu", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 }

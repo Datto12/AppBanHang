@@ -32,6 +32,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import vn.edu.fpt.appbanhang.Cart.CartFragment;
 import vn.edu.fpt.appbanhang.DienThoai.DienThoaiFragment;
 import vn.edu.fpt.appbanhang.LapTop.ChiTietLaptopActivity;
 import vn.edu.fpt.appbanhang.LapTop.LapTopFragment;
@@ -117,6 +118,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }else if (id == R.id.thongtin) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.id_framelayout, ThongTinFragment.newInstance());//Thay thế màn hình framelayout bằng Bai1fragment
+            transaction.commit();
+       }
+        else if (id == R.id.cart) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.id_framelayout, CartFragment.newInstance());//Thay thế màn hình framelayout bằng Bai1fragment
             transaction.commit();
         }
         drawerLayout.closeDrawer(navigationView);

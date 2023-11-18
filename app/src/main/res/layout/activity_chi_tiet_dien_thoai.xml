@@ -57,7 +57,7 @@
        <Button
            android:layout_width="200dp"
            android:layout_height="70dp"
-           android:text="Mua ngay"
+           android:text="Add to cart"
            android:backgroundTint="#E60606"
            android:textStyle="bold"
            android:textSize="20dp"

@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -17,8 +19,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import vn.edu.fpt.appbanhang.DienThoai.ChiTietDienThoai;
+import vn.edu.fpt.appbanhang.DienThoai.ChiTietDienThoaiActivity;
 import vn.edu.fpt.appbanhang.R;
 import vn.edu.fpt.appbanhang.Retrofit.MyRetrofit;
+import vn.edu.fpt.appbanhang.models.Cart;
 
 public class ChiTietLaptopActivity extends AppCompatActivity {
     private ImageView img;
@@ -26,13 +30,15 @@ public class ChiTietLaptopActivity extends AppCompatActivity {
     private Button btnMua;
     private ArrayList<ChiTietLaptop> list;
     private String id_laptop;
-
+    String id ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chi_tiet_laptop);
+        id = getIntent().getStringExtra("id_laptop");
         AnhXa();
         ChiTiet();
+        addCart();
     }
 
     public void AnhXa(){
@@ -43,7 +49,7 @@ public class ChiTietLaptopActivity extends AppCompatActivity {
         btnMua = findViewById(R.id.btnMualaptop);
     }
     public void ChiTiet(){
-        String id = getIntent().getStringExtra("id_laptop");
+
         Handler handler = new Handler(Looper.getMainLooper());
         MyRetrofit.api.getChiTietLaptop(id).enqueue(new Callback<DuLieuChiTietLaptop>() {
             @Override
@@ -67,6 +73,27 @@ public class ChiTietLaptopActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<DuLieuChiTietLaptop> call, Throwable t) {
 
+            }
+        });
+    }
+    String id_user = "653913832367b0e5485fd324";
+    public void addCart(){
+        btnMua.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyRetrofit.api.addCart(id_user,id,"LapTopModel").enqueue(new Callback<Cart>() {
+                    @Override
+                    public void onResponse(Call<Cart> call, Response<Cart> response) {
+                        if (response.isSuccessful()){
+                            Toast.makeText(ChiTietLaptopActivity.this,"Them gio hang thanh cong",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Cart> call, Throwable t) {
+
+                    }
+                });
             }
         });
     }
