@@ -1,4 +1,4 @@
-package vn.edu.fpt.appbanhang.SignUp;
+package vn.edu.fpt.appbanhang.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 

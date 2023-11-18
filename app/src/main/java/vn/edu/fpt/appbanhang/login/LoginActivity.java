@@ -18,7 +18,6 @@ import retrofit2.Response;
 import vn.edu.fpt.appbanhang.MainActivity;
 import vn.edu.fpt.appbanhang.R;
 import vn.edu.fpt.appbanhang.Retrofit.MyRetrofit;
-import vn.edu.fpt.appbanhang.SignUp.SignUpActivity;
 import vn.edu.fpt.appbanhang.models.User;
 
 public class LoginActivity extends AppCompatActivity {
