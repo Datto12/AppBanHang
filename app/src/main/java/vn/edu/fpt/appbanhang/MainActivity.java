@@ -35,6 +35,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import vn.edu.fpt.appbanhang.Cart.CartFragment;
 import vn.edu.fpt.appbanhang.DienThoai.DienThoaiFragment;
 import vn.edu.fpt.appbanhang.LapTop.LapTopFragment;
 import vn.edu.fpt.appbanhang.LienHe.Chat_bot_Fragment;
@@ -127,8 +128,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.id_framelayout, ThongTinFragment.newInstance());
             transaction.commit();
-        }else if (id == R.id.out_app) {
-            showDialogOut();
         }
         drawerLayout.closeDrawer(navigationView);
         return false;

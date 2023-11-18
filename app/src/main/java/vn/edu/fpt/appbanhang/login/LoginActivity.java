@@ -31,8 +31,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         AnhXa();
+        list = new ArrayList<User>();
         SignUp();
-        GetDataUser();
+      //  GetDataUser();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,23 +47,24 @@ public class LoginActivity extends AppCompatActivity {
         edPassword = findViewById(R.id.edPasswordLogin);
         btnLogin = findViewById(R.id.btnLogin);
         tvSignUp = findViewById(R.id.tvSignUp);
-        list = new ArrayList<>();
-    }
-    public void GetDataUser(){
-       MyRetrofit.api.getUser().enqueue(new Callback<ArrayList<User>>() {
-           @Override
-           public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
-               if(response.body()!=null){
-                   list = response.body();
-               }
-           }
 
-           @Override
-           public void onFailure(Call<ArrayList<User>> call, Throwable t) {
-
-           }
-       });
     }
+//    public void GetDataUser(){
+//       MyRetrofit.api.getUser().enqueue(new Callback<User>() {
+//           @Override
+//           public void onResponse(Call<User> call, Response<User> response) {
+//               if(response.isSuccessful()){
+//                   list.clear();
+//                   list.addAll(response.body());
+//               }
+//           }
+//
+//           @Override
+//           public void onFailure(Call<User> call, Throwable t) {
+//
+//           }
+//       });
+//    }
     public void CheckLogin(){
         String email = edEmail.getText().toString().trim();
         String passwd = edPassword.getText().toString().trim();

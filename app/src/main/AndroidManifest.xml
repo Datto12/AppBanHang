@@ -39,9 +39,8 @@
             android:exported="false" >
 
 
-        </activity>
-        <activity android:name=".login.ManHinhChoActivity"
-            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
         </activity>
     </application>
